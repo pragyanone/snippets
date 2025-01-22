@@ -21,7 +21,7 @@ def combine_tables_from_directories(root_dir, output_file):
     # Traverse all directories and subdirectories
     for root, _, files in os.walk(root_dir):
         for file_name in sorted(files):
-            if file_name.endswith(".docx"):
+            if file_name.endswith(".docx") and not file_name.startswith("~$"):
                 file_path = os.path.join(root, file_name)
                 print(file_path)
                 try:
