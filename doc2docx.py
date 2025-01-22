@@ -20,6 +20,13 @@ def batch_convert_doc_to_docx(directory):
         for file in files:
             if file.endswith('.doc') and not file.startswith('~$'):  # Skip temporary files
                 file_path = os.path.join(dir_path, file)
+                docx_file_path = file_path + 'x'  # Expected .docx file path
+                
+                # Skip conversion if .docx file already exists
+                if os.path.exists(docx_file_path):
+                    print(f"Skipped (already converted): {file_path}")
+                    continue
+                
                 try:
                     new_file = convert_doc_to_docx(file_path)
                     print(f"Converted: {file_path} -> {new_file}")
