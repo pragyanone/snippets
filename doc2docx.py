@@ -3,14 +3,22 @@ import win32com.client as win32
 
 def convert_doc_to_docx(file_path):
     """Converts a .doc file to .docx format."""
-    word = win32.gencache.EnsureDispatch('Word.Application')
-    doc = word.Documents.Open(file_path)
+    # Create a unique instance of Word to avoid interfering with manually opened files
+    word = win32.DispatchEx('Word.Application')
+    word.Visible = False  # Keep Word hidden during processing
     
-    # Save the file as .docx
-    new_file_path = file_path + 'x'
-    doc.SaveAs(new_file_path, FileFormat=16)  # 16 corresponds to wdFormatXMLDocument
-    doc.Close()
-    word.Quit()
+    try:
+        doc = word.Documents.Open(file_path)
+        
+        # Save the file as .docx
+        new_file_path = file_path + 'x'
+        doc.SaveAs(new_file_path, FileFormat=16)  # 16 corresponds to wdFormatXMLDocument
+        doc.Close()
+    except Exception as e:
+        print(f"Error converting {file_path}: {e}")
+        new_file_path = None  # Indicate failure if an error occurs
+    finally:
+        word.Quit()  # Quit only this instance of Word
     
     return new_file_path
 
@@ -29,7 +37,10 @@ def batch_convert_doc_to_docx(directory):
                 
                 try:
                     new_file = convert_doc_to_docx(file_path)
-                    print(f"Converted: {file_path} -> {new_file}")
+                    if new_file:
+                        print(f"Converted: {file_path} -> {new_file}")
+                    else:
+                        print(f"Failed to convert: {file_path}")
                 except Exception as e:
                     print(f"Failed to convert {file_path}: {e}")
 
