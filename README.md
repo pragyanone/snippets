@@ -38,7 +38,7 @@ eval $find_command
 ```
 
 ## autodesk
-Fix Licence issue due to updating of Current link
+fix Licence issue due to updating of Current link
 syntax:
 ```
 mklink /d <link> <target>
@@ -101,7 +101,7 @@ RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
 ```
 
 ## ytdlp
-Download protected hsl / ts videos
+download protected hsl / ts videos
 ```
 yt-dlp -o filename.extension –referer {url} {inspect->network->filter(m3u8)->master…->copy->copy link address}
 ```
