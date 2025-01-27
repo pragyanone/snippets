@@ -95,7 +95,7 @@ ffmpeg -i in.mp3 -i test.png -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadat
 ```
 
 ## windows
-safely eject storage
+safely remove hardware
 ```
 RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
 ```
