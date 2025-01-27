@@ -105,7 +105,7 @@ download protected hsl / ts videos
 ```
 yt-dlp -o filename.extension –referer {url} {inspect->network->filter(m3u8)->master…->copy->copy link address}
 ```
-ytdlp download audio with thumbnail
+download audio with thumbnail
 ```
 yt-dlp url --embed-thumbnail -f bestaudio -x --audio-format mp3 --audio-quality 320k
 ```
