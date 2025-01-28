@@ -86,7 +86,7 @@ var myInt = setInterval(function(){ doIt() }, 2000);
 ## ffmpeg
 compress
 ```
-for %f in (*.mp4) do ffmpeg_cuda -i "%f" -c:v libx264 -preset ultrafast -crf 30 -c:a aac -b:a 128k -movflags +faststart "compressed\_%~nf.mp4
+for %f in (*.mp4) do ffmpeg_cuda -i "%f" -c:v libx264 -preset ultrafast -crf 30 -c:a aac -b:a 128k -movflags +faststart "compressed\_%~nf.mp4"
 ```
 
 embed thumbnail in mp3
