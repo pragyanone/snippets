@@ -104,6 +104,19 @@ safely remove hardware
 RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
 ```
 
+## web
+paste using javascript
+```
+document.addEventListener("click", function(event) {
+    let inputBox = document.activeElement; // Get the currently focused input field
+    if (inputBox && (inputBox.tagName === "INPUT" || inputBox.tagName === "TEXTAREA")) {
+        let text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nam ante justo, dictum vitae enim quis, consequat tincidunt ipsum.`;
+        inputBox.value = text; // Insert text into the input box
+    }
+});
+```
+
 ## ytdlp
 download protected hsl / ts videos
 ```
