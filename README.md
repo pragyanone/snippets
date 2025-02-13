@@ -49,7 +49,7 @@ example:
 mklink /d “C:\Program Files (x86)\Common Files\Autodesk Shared\AdskLicensing\Current” “C:\Program Files (x86)\Common Files\Autodesk Shared\AdskLicensing\13.0.0.8122”
 ```
 
-## facebook web
+## messenger web
 archive all chats
 ```
 function getElementsByText(str, tag = 'a') {
