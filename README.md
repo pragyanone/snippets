@@ -131,7 +131,6 @@ def get_file_hash(file_path, chunk_size=8192):
         print(f"Error reading {file_path}: {e}")
         return None
 
-
 # Step 1: Scan entire search_root excluding selected dirs
 existing_hashes = set()
 print("\n--- Scanning Files for Hashing ---")
