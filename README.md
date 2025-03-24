@@ -105,6 +105,72 @@ safely remove hardware
 RunDll32.exe shell32.dll,Control_RunDLL hotplug.dll
 ```
 
+delete duplicates from a subdirectory like Downloads
+```
+import os
+import hashlib
+from send2trash import send2trash  # Import send2trash
+
+# Define paths
+target_folder = os.path.abspath(r"E:/dir1/dir2")  # Ensure absolute path
+search_root = os.path.abspath(r"E:/")
+excluded_dirs = {
+    os.path.abspath(r"E:/$RECYCLE.BIN"),
+    target_folder,
+}  # Set of excluded directories
+
+
+# Function to calculate SHA-256 hash of a file
+def get_file_hash(file_path, chunk_size=8192):
+    hasher = hashlib.sha256()
+    try:
+        with open(file_path, "rb") as f:
+            while chunk := f.read(chunk_size):
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
+        return None
+
+
+# Step 1: Scan entire search_root excluding the target folder and $RECYCLE.BIN
+existing_hashes = set()
+print("\n--- Scanning Files for Hashing ---")
+for root, _, files in os.walk(search_root):
+    if any(
+        root.startswith(excluded) for excluded in excluded_dirs
+    ):  # Skip excluded directories
+        continue
+    for file in files:
+        file_path = os.path.join(root, file)
+        file_hash = get_file_hash(file_path)
+        if file_hash:
+            existing_hashes.add(file_hash)
+            file_size = os.path.getsize(file_path)
+            print(f"Scanned: {file_path} ({file_size / (1024**2):.2f} MB)")
+
+# Step 2: Scan target folder, move duplicates to recycle bin, and calculate total size
+total_size = 0  # Track total size of trashed files
+print("\n--- Checking for Duplicates & Moving to Recycle Bin ---")
+
+for root, _, files in os.walk(target_folder):
+    for file in files:
+        file_path = os.path.join(root, file)
+        file_hash = get_file_hash(file_path)
+        if file_hash in existing_hashes:
+            file_size = os.path.getsize(file_path)  # Get file size
+            total_size += file_size  # Add to total size
+            print(
+                f"Moving to Recycle Bin: {file_path} ({file_size / (1024**2):.2f} MB)"
+            )
+            send2trash(file_path)  # Move to Recycle Bin
+
+# Print total size of trashed files
+print(f"\nTotal size of trashed files: {total_size / (1024**2):.2f} MB")
+
+```
+
+
 ## web
 paste using javascript
 ```
