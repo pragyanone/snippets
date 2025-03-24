@@ -117,8 +117,7 @@ search_root = os.path.abspath(r"E:/")
 excluded_dirs = {
     os.path.abspath(r"E:/$RECYCLE.BIN"),
     target_folder,
-}  # Set of excluded directories
-
+}
 
 # Function to calculate SHA-256 hash of a file
 def get_file_hash(file_path, chunk_size=8192):
