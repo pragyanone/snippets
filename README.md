@@ -109,10 +109,10 @@ delete duplicates from a subdirectory like Downloads
 ```
 import os
 import hashlib
-from send2trash import send2trash  # Import send2trash
+from send2trash import send2trash
 
 # Define paths
-target_folder = os.path.abspath(r"E:/dir1/dir2")  # Ensure absolute path
+target_folder = os.path.abspath(r"E:/dir1/dir2")
 search_root = os.path.abspath(r"E:/")
 excluded_dirs = {
     os.path.abspath(r"E:/$RECYCLE.BIN"),
@@ -133,7 +133,7 @@ def get_file_hash(file_path, chunk_size=8192):
         return None
 
 
-# Step 1: Scan entire search_root excluding the target folder and $RECYCLE.BIN
+# Step 1: Scan entire search_root excluding selected dirs
 existing_hashes = set()
 print("\n--- Scanning Files for Hashing ---")
 for root, _, files in os.walk(search_root):
