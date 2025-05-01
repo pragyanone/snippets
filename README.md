@@ -55,32 +55,31 @@ archive all chats
 function getElementsByText(str, tag = 'a') {
   return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter(el => el.textContent.trim() === str.trim());
 }
+
 function getElementByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
-function doIt(){
-console.log("1");
-    getElementsByText = function getElementsByText(str, tag = 'a') {
-      return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter(el => el.textContent.trim() === str.trim());
-    }
-getElementByXpath = function getElementByXpath(path) {
-  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+function doIt() {
+  console.log("1");
+  
+  // Find menu button that starts with "More options for"
+  const menuButtons = Array.from(document.querySelectorAll('[aria-label^="More options for"]'));
+  
+  if (menuButtons.length > 0) {
+    menuButtons[0].click();
+
+    setTimeout(function() {
+      getElementByXpath('//span[text()="Archive Chat" or text()="Archive chat"]')?.click();
+    }, 1500);
+
+    setTimeout(function() {
+      getElementByXpath('//div[(@aria-label="Archive Chat" and @tabindex="0") or (@aria-label="Archive chat" and @tabindex="0")]')?.click();
+    }, 1000);
+  }
 }
 
-    document.querySelectorAll('[aria-label="Menu"]')[1].click();
-
-    setTimeout(function(){
-      getElementByXpath('//span[text()="Archive Chat" or text()="Archive chat"]').click();
-    },1500);
-
-    setTimeout(function(){
-      getElementByXpath('//div[(@aria-label="Archive Chat" and @tabindex="0")or(@aria-label="Archive chat" and @tabindex="0")]').click();
-    },1000);
-
-}
-
-var myInt = setInterval(function(){ doIt() }, 2000);
+var myInt = setInterval(doIt, 2000);
 ```
 
 
